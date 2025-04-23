@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.core.paginator import Paginator
 from bands.models import Musician
 
 def musician(request, musician_id):
@@ -6,5 +7,20 @@ def musician(request, musician_id):
     return render(request, 'musician.xhtml', {'musician': musician})
 
 def musicians(request):
-    musicians = Musician.objects.all().order_by('last_name')
-    return render(request, 'musicians.xhtml', {'musicians': musicians})
+    all_musicians = Musician.objects.all().order_by('last_name')
+    paginator = Paginator(all_musicians, 2) # Show 10 musicians per page
+    page_number = request.GET.get('page', 1)
+    page_number = int(page_number)
+
+    if page_number > paginator.num_pages:
+        page_number = paginator.num_pages
+    elif page_number < 1:
+        page_number = 1
+
+    page = paginator.page(page_number)
+    data = {
+        'musicians': page.object_list,
+        'page': page,
+    }
+
+    return render(request, 'musicians.xhtml', data)
