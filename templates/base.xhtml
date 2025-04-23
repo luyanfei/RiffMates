@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" class="h-100">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="RiffMates">
+  <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <title>
+    {% block title %}
+    RiffMates {% if title %}&mdash;{{ title }}{% endif %}
+    {% endblock %}
+  </title>
+  <style>
+    main>.container {
+      padding: 60px 15px 0;
+    }
+  </style>
+</head>
+
+<body class="d-flex flex-column h-100">
+  <header>
+    {% block navbar %} ①
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">RiffMates</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle=[CA]"collapse" data-bs-target="#navbarCollapse"
+          aria-controls=[CA]"navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'news' %}">News</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'credits' %}">Credits</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {% endblock %}
+  </header>
+
+  <main class="flex-shrink-0">
+    <div class="container">
+    {% block content %}
+    {% endblock content %}
+    </div>
+  </main>
+
+  <footer class="footer mt-auto py-3 bg-light">
+    <div class="container">
+      {% block footer %}
+      <span class="text-muted">
+        RiffMates: by musicians for musicians
+      </span>
+      {% endblock footer %}
+    </div>
+  </footer>
+  <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
