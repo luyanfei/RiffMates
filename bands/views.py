@@ -8,7 +8,7 @@ def musician(request, musician_id):
 
 def musicians(request):
     all_musicians = Musician.objects.all().order_by('last_name')
-    paginator = Paginator(all_musicians, 2) # Show 10 musicians per page
+    paginator = Paginator(all_musicians, 2)
     page_number = request.GET.get('page', 1)
     page_number = int(page_number)
 

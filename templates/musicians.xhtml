@@ -19,6 +19,11 @@
     {% endfor %}
   </ul>
   {% if page.has_other_pages %}
-
+    {% if page.has_previous %}
+      <a href="{% url 'musicians' %}?page={{ page.previous_page_number }}">Previous</a>
+    {% endif %}
+    {% if page.has_next %}
+      <a href="{% url 'musicians' %}?page={{ page.next_page_number }}">Next</a>
+    {% endif %}
   {% endif %}
 {% endblock content %}
