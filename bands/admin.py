@@ -1,7 +1,9 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from django.urls import reverse
-from bands.models import Musician, Band
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import User
+from bands.models import Musician, Band, UserProfile
 from datetime import datetime, date
 
 class DecadeListFilter(admin.SimpleListFilter):
@@ -51,3 +53,13 @@ class MusicianAdmin(admin.ModelAdmin):
 class BandAdmin(admin.ModelAdmin):
     class Meta:
         ordering = ('name',)
+
+class UserProfileInline(admin.StackedInline):
+    model = UserProfile
+    can_delete = False
+
+class UserAdmin(BaseUserAdmin):
+    inlines = (UserProfileInline,)
+
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
