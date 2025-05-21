@@ -2,7 +2,11 @@ from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
-from bands.models import Musician
+from bands.models import Musician, UserProfile
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth.models import User
+
 
 def musician(request, musician_id):
     musician = get_object_or_404(Musician, id=musician_id)
@@ -64,3 +68,12 @@ def musician_restricted(request, musician_id):
         'content': content,
     }
     return render(request, 'general.xhtml', data)
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, **kwargs):
+    if kwargs['created'] and not kwargs['raw']:
+        user = kwargs['instance']
+        try:
+            UserProfile.objects.get(user=user)
+        except UserProfile.DoesNotExist:
+            UserProfile.objects.create(user=user)

@@ -39,6 +39,17 @@
             </li>
           </ul>
         </div>
+        <div>
+          {% if user.is_authenticated %}
+            <span style="color: white">Hello, {{ user.username }}!</span>
+            <form action="{% url 'logout' %}" method="post" style="display: inline">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-outline-secondary">Logout</button>
+            </form>
+          {% else %}
+            <a href="{% url 'login' %}" class="btn btn-outline-secondary">Login</a>
+          {% endif %}
+        </div>
       </div>
     </nav>
     {% endblock %}
