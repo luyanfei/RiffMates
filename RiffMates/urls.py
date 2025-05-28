@@ -25,4 +25,5 @@ urlpatterns = [
     path('news/', home_views.news, name='news'),
     path('adv_news/', home_views.news_advanced, name='adv_news'),
     path('bands/', include('bands.urls')),
+    path('content/', include('content.urls')),
 ]
