@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from content.forms import CommentForm
+from content.models import SeekingAd, MusicianBandChoice
 
 def comment(request):
     if request.method == 'GET':
@@ -22,3 +23,13 @@ def comment_accepted(request):
     }
     return render(request, 'general.xhtml', data)
 
+def list_ads(request):
+    data = {
+        'seeking_musician': SeekingAd.objects.filter(
+            seeking=MusicianBandChoice.MUSICIAN
+        ),
+        'seeking_band': SeekingAd.objects.filter(
+            seeking=MusicianBandChoice.BAND
+        )
+    }
+    return render(request, 'list_ads.xhtml', data)
