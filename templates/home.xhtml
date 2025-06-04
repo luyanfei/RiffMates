@@ -1,0 +1,16 @@
+{% extends "base.xhtml" %}
+{% load static %}
+
+{% block content %}
+    <img src="{% static 'img/logo.png' %}" alt="Logo Image" height="100">
+
+    <h1>Welcome to RiffMates!</h1>
+
+    <ul>
+        <li><a href="{% url 'news' %}">News</a></li>
+        <li><a href="{% url 'comment' %}">Comment</a></li>
+        <li><a href="{% url 'list_ads' %}">List Ads</a></li>
+        <li><a href="{% url 'musicians' %}">Musicians</a></li>
+    </ul>
+    
+{% endblock %}
